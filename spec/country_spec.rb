@@ -36,18 +36,9 @@ describe ISO3166::Country do
     country.names.should == ["United States of America", "Vereinigte Staaten von Amerika", "États-Unis", "Estados Unidos", "アメリカ合衆国", "Verenigde Staten"]
   end
 
-  it 'should return all supported translations' do
+  it 'should return translations' do
     country.translations.should be
     country.translations["en"].should == "United States of America"
-    country.translations["it"].should == "Stati Uniti D'America"
-    country.translations["de"].should == "Vereinigte Staaten von Amerika"
-    country.translations["fr"].should == "États-Unis"
-    country.translations["es"].should == "Estados Unidos"
-    country.translations["ja"].should == "アメリカ合衆国"
-    country.translations["nl"].should == "Verenigde Staten"
-    country.translations["ru"].should == "Соединенные Штаты Америки"
-    country.translations["ar"].should == "الولايات المتحدة الامريكية"
-    country.translations["sv"].should == "USA"
   end
 
   it 'should return latitude' do
@@ -178,16 +169,6 @@ describe ISO3166::Country do
       countries.should have(249).countries
     end
 
-    it 'should return an alphabetized list of all country names translated to the selected locale' do
-      countries = ISO3166::Country.all_translated('sv')
-      countries.should be_an(Array)
-      countries.first.should be_a(String)
-      countries.last.should eq('Östtimor')
-      # countries missing the desired locale will not be added to the list
-      # so all 250 countries may not be returned, 'sv' returns 242, for example
-      # TODO: improve
-      countries.should have(250).countries
-    end
     it 'should return an alphabetized list of all country names in English if no locale is passed' do
       countries = ISO3166::Country.all_translated
       countries.should be_an(Array)
